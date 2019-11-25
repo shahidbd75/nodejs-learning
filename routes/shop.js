@@ -12,7 +12,8 @@ router.get('/',(req, res, next) => {
     // res.sendFile(path.join(rootDir,'views','shop.html'));
     res.render('shop', {
         prods: products,
-        pageTitle: 'My Shop'
+        pageTitle: 'My Shop',
+        path: '/'
     });
 });
 
