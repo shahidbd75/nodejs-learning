@@ -1,0 +1,27 @@
+<%- include('../includes/header.ejs')%>
+    <link rel="stylesheet" href="/css/forms.css">
+</head>
+<body>
+<%- include('../includes/navigation.ejs')%>
+    <main>
+        <form class="product-form" action="/admin/add-product" method="POST" >
+            <div class="form-control">
+                <label for="txtTitle">Title</label>
+                <input type="text" name="title" id="txtTitle">
+            </div>
+            <div class="form-control">
+                <label for="fuImage">Image Url</label>
+                <input type="text" name="imageUrl" id="fuImage">
+            </div>
+            <div class="form-control">
+                <label for="txtPrice">Price</label>
+                <input type="number" name="price" id="txtPrice">
+            </div>
+            <div class="form-control">
+                <label for="txtDescription">Description</label>
+                <textarea type="text" name="description" id="txtDescription" rows="5"></textarea>
+            </div>
+            <button type="submit">Add Product</button>
+        </form>
+    </main>
+<%- include('../includes/end.ejs')%>
