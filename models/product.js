@@ -1,6 +1,9 @@
 const path = require('path');
 const fs = require('fs');
 
+const getDb = require('../utils/database').getDb;
+
+// Persistence Method 
 const p = path.join(path.dirname(process.mainModule.filename), 'data', 'products.json');
 
 const getProductsFromFile = (callBack) => {
@@ -23,15 +26,32 @@ module.exports = class Product {
     }
 
     save() {
-        getProductsFromFile((products) => {
-            products.push(this);
-            fs.writeFile(p,JSON.stringify(products), (err) => {
-                console.log(err);
-            });
+        const db = getDb();
+        return db.collection('products').insertOne(this).then(result => {
+            console.log(result);
+           }).catch(err => {
+               console.log('Db insert faild for save product');
+           });
+        // getProductsFromFile((products) => {
+        //     products.push(this);
+        //     fs.writeFile(p,JSON.stringify(products), (err) => {
+        //         console.log(err);
+        //     });
+        // });
+    }
+
+    static fetchAll() {
+        const db = getDb();
+
+        return db.collection('products').find().toArray().then(result => {
+            console.log(result);
+            return result;
+        }).catch(err => {
+            console.log('Fetch Products', err);
         });
     }
 
-    static fetchAll(callBack) {
-        getProductsFromFile(callBack);
-    }
+    // static fetchAll(callBack) {
+    //     getProductsFromFile(callBack);
+    // }
 }

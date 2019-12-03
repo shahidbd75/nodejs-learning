@@ -3,6 +3,7 @@ const path = require('path');
 const express  = require('express');
 
 const rootDir = require('./utils/path');
+const mongoConnect = require('./utils/database').mongoConnect;
 //router
 const adminRouter = require('./routes/admin');
 const shopRouter = require('./routes/shop');
@@ -25,4 +26,8 @@ app.set('views','views');
 
 app.use(errorController.error404);
 
-app.listen(3000);
+
+mongoConnect(() => {
+    console.log('Surver running');
+    app.listen(3000);
+});
